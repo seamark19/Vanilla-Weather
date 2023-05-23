@@ -32,6 +32,32 @@ let li = document.querySelector("li");
 
 li.innerHTML = `${day}, ${date}  ${month}, ${year} , ${hours}:${minutes}`;
 
+function displayForcast(){
+  let forcastElement = document.querySelector("#forcast");
+   let forcastHTML =  `<div class = "row">`;
+   let days = [ "Wed", "Thu", "Fri","Sat","Sun", "Mon"];
+   days.forEach(function(day){
+    forcastHTML = forcastHTML+`
+  <div class="col-2">
+       <div class="weather-forcast-date">${day}</div>    
+          <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="" id="icon" width=42/>
+           <div class="weather-forcast-temperature">
+            <span class="weather-forcast-temperature-max">20°</span>
+            <span class="weather-forcast-temperature-min">12°</span>
+           
+           </div>
+           </div>
+ `
+
+   })
+  
+forcastHTML = forcastHTML + `</div>`;
+forcastElement.innerHTML = forcastHTML;
+}
+
+
+
+
 
 function displayWeatherCondition(response) {
   console.log(response.data);
@@ -50,6 +76,9 @@ function displayWeatherCondition(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute ("src",`https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute ("alt",`https://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`);
+
+
+
 }
 function search(event) {
   event.preventDefault();
@@ -83,4 +112,4 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
-
+displayForcast();

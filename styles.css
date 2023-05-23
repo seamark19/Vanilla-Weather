@@ -34,3 +34,7 @@ text-transform: capitalize;}
     display: block;
     margin: 10px 700px;
 }
+.weather-forcast{
+    text-align: center;
+    margin-top: 20px;
+}
