@@ -32,7 +32,8 @@ let li = document.querySelector("li");
 
 li.innerHTML = `${day}, ${date}  ${month}, ${year} , ${hours}:${minutes}`;
 
-function displayForcast(){
+function displayForcast(response){
+  console.log(response.data.daily);
   let forcastElement = document.querySelector("#forcast");
    let forcastHTML =  `<div class = "row">`;
    let days = [ "Wed", "Thu", "Fri","Sat","Sun", "Mon"];
@@ -56,7 +57,16 @@ forcastElement.innerHTML = forcastHTML;
 }
 
 
+function getForcast(coordinates){
+  console.log(coordinates);
+  let apiKey = "2a2eaa51d996796495bf456e5b58adf4";
+  
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric
 
+  `;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForcast);
+}
 
 
 function displayWeatherCondition(response) {
@@ -77,7 +87,7 @@ function displayWeatherCondition(response) {
   iconElement.setAttribute ("src",`https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute ("alt",`https://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`);
 
-
+getForcast(response.data.coord);
 
 }
 function search(event) {
@@ -112,4 +122,4 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
-displayForcast();
+
